@@ -1,0 +1,46 @@
+% Facts about early blight symptoms
+symptom(potato, yellow_leaves).
+symptom(potato, brown_spots_on_leaves).
+symptom(potato, concentric_rings_on_leaves).
+
+% Facts about late blight symptoms
+symptom(potato, dark_spots_on_leaves).
+symptom(potato, white_mildew_on_leaves).
+
+% Rules to identify early blight
+early_blight :-
+  symptom(potato, yellow_leaves),
+  symptom(potato, brown_spots_on_leaves).
+
+early_blight :-
+  symptom(potato, concentric_rings_on_leaves).
+
+% Rule to identify late blight
+late_blight :-
+  symptom(potato, dark_spots_on_leaves),
+  symptom(potato, white_mildew_on_leaves).
+
+% Forward chaining
+identify_early_blight :-
+  early_blight,
+  writeln('Potato plant is suffering from early blight.').
+
+% Backward chaining
+identify_late_blight :-
+  writeln('Does the plant have dark spots on leaves? (yes/no)'),
+  read(Response1),
+  writeln('Does the plant have white mildew on leaves? (yes/no)'),
+  read(Response2),
+  (Response1 == yes, Response2 == yes -> writeln('Potato plant is suffering from late blight.');
+   writeln('Potato plant is not suffering from late blight.')).
+
+% Main predicate to identify blight
+identify_blight :-
+  writeln('Does the plant have yellow leaves? (yes/no)'),
+  read(Response3),
+  writeln('Does the plant have brown spots on leaves? (yes/no)'),
+  read(Response4),
+  writeln('Does the plant have concentric rings on leaves? (yes/no)'),
+  read(Response5),
+  (Response3 == yes, Response4 == yes, Response5 == yes -> identify_early_blight;
+   writeln('Potato plant is not suffering from early blight.')).
